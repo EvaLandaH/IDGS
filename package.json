@@ -1,0 +1,14 @@
+{
+  "name": "postme",
+  "version": "1.0.0",
+  "description": "PWA para realizar publicaciones",
+  "main": "index.js",
+  "scripts": {
+    "start":"http-server -c -1"
+  },
+  "author": "eva.landa@utcv.edu.mx",
+  "license": "ISC",
+  "devDependencies": {
+    "http-server": "^13.0.2"
+  }
+}
