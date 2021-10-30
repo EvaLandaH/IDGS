@@ -7,9 +7,9 @@ self.addEventListener('install', (event)=>{
             setTimeout(()=>{
                 const adicionandoMisArchivos='';
                 const adocionarVariablesDinamicas='';
-                console.log('Service worker instalado');
+                console.log('Service worker se instalo correctamente');
              resolve();
-            },1000);
+            }, 1000);
             self.skipWaiting();
          }catch(error){
             reject(error.message);
@@ -34,6 +34,6 @@ self.addEventListener('sync',  (event)=>{
 });
 
 self.addEventListener('push',  (event)=>{
-    console.log(event);
+    console.error(event);
 });
 
