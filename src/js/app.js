@@ -21,8 +21,6 @@ const closePostModal = () => {
 };
 
 window.addEventListener('beforeinstallprompt', (e) => {
-
-  console.log('anulando mensaje');
   e.preventDefault();
   deferredPrompt = e;
 });
