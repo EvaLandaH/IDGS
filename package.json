@@ -4,11 +4,14 @@
   "description": "PWA para realizar publicaciones",
   "main": "index.js",
   "scripts": {
-    "start":"http-server -c -1"
+    "start": "http-server -c -1"
   },
   "author": "eva.landa@utcv.edu.mx",
   "license": "ISC",
   "devDependencies": {
     "http-server": "^13.0.2"
+  },
+  "dependencies": {
+    "firebase": "^9.4.1"
   }
 }

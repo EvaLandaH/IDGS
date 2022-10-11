@@ -5,6 +5,7 @@ const CACHE_FILES_CORE=[
     "src/images/icons/icon-144x144.png",
     "src/images/computer.jpg",
     "index.html",
+    "post.html",
     "/"
 ];
 
@@ -19,15 +20,15 @@ const CACHE_FILES_INMUTABLE=[
     "https://fonts.gstatic.com/s/materialicons/v55/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2",
     "https://fonts.gstatic.com/s/materialicons/v55/flUhRq6tzZclQEJ-Vdg-IuiaDsNcIhQ8tQ.woff2",
     "https://unpkg.com/pwacompat"
-];
-
+]
+    
 self.addEventListener('install', (event)=>{
     const guardandoCache=caches.open(CACHE_NAME_CORE)
         .then (cache =>cache.addAll(CACHE_FILES_CORE))
         .catch(err=>console.error(err.message));
     const guardandoCacheInmutable=caches.open(CACHE_NAME_INMUTABLE)
         .then (cache =>cache.addAll(CACHE_FILES_INMUTABLE))
-        //.catch(err=>console.error(err.message));   
+        .catch(err=>console.error(err.message));   
     self.skipWaiting();
     event.waitUntil(Promise.all([guardandoCache,guardandoCacheInmutable]));
 });

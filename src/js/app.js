@@ -20,6 +20,53 @@ const closePostModal = () => {
   MODAL_POST.style.transform = 'translateY(100vh)';
 };
 
+const sendData = async (e) => {
+  try {
+    e.preventDefault();
+    TITLE = document.querySelector('#title').value;
+    DESCRIPTION = document.querySelector('#description').value;
+    if (TITLE && DESCRIPTION) {
+      const post = {
+        title: TITLE,
+        description: DESCRIPTION,
+      }
+      // Vamos a utilizar el SyncManager
+      if (window.SyncManager) {
+        // Grabar o armar nuestra logica
+        const readySW = await navigator.serviceWorker.ready;
+        await readySW.sync.register('new-post');
+        post._id = new Date().toISOString();
+        await DB_POUCH.put(post);
+      } else {
+        post.timestamp = firebase.firestore.FieldValue.serverTimestamp();
+        await db.collection('posts').add(post);
+      }
+      const data = {
+        message: 'Registro exitosamente almacenado',
+        timeout: 5000
+      };
+      Message().MaterialSnackbar.showSnackbar(data);
+    } else {
+      const data = {
+        message: 'Faltan campos por llenar',
+        timeout: 1500
+      };
+      Message('error').MaterialSnackbar.showSnackbar(data);
+    }
+  } catch (error) {
+    const data = {
+      message: error.message,
+      timeout: 1500
+    };
+    Message('error').MaterialSnackbar.showSnackbar(data);
+  }
+};
+
+
+
+
+
+
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
@@ -49,6 +96,9 @@ if (response){
 }
 
 }
+// Agarrando el boton enviar post
+const btnPostSubmit = document.querySelector('#btn-post-submit');
+btnPostSubmit.addEventListener('click', (e) => sendData(e));
 
 const bannerInstall = document.querySelector('#banner-install');
     bannerInstall.addEventListener('click', async () => {
